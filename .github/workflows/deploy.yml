@@ -21,14 +21,24 @@ jobs:
           toolchain: stable
           override: true
 
+      # Cache Rust dependencies and build artifacts
+      - name: Cache Rust dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
       # Install Dioxus CLI
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
 
       # Build the Dioxus project
       - name: Build Dioxus project
-        run: dx build
-
+        run: dx bundle --platform web
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
