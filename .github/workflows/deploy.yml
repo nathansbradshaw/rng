@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-        contents: write
+      contents: write  # Allow writing to the repository
 
     steps:
       # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Rust (Dioxus requires Rust)
+      # Set up Rust (required for cargo-binstall)
       - name: Set up Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -35,13 +35,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
 
-      # Install Dioxus CLI
+      # Install cargo-binstall
+      - name: Install cargo-binstall
+        run: |
+          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+
+      # Install Dioxus CLI using cargo-binstall
       - name: Install Dioxus CLI
-        run: cargo install dioxus-cli
+        run: cargo binstall dioxus-cli --no-confirm
 
       # Build the Dioxus project
       - name: Build Dioxus project
         run: dx bundle --platform web
+
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
