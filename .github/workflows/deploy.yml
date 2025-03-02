@@ -58,4 +58,4 @@ jobs:
           mv target/dx/rng/release/web/public docs
           git add .
           git commit -m "Release"
-          git push origin gh-pages
+          git push
