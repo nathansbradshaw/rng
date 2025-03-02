@@ -11,6 +11,9 @@ dioxus = { version = "0.6", features = ["router"] }
 getrandom = { version = "0.3.1", features = ["wasm_js"] }
 rand = "0.9.0"
 
+[lib]
+name = "rng"
+path = "src/lib.rs"
 
 [features]
 default = ["web"]
