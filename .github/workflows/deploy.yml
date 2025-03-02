@@ -50,6 +50,7 @@ jobs:
 
       - name: Copy Files to Docs
         run: |
+          rm -R ./docs
           mkdir -p docs  # Create the docs directory if it doesn't exist
           cp -r ./target/dx/rng/release/web/public/* ./docs/  # Copy files
 
