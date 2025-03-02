@@ -48,6 +48,11 @@ jobs:
       - name: Build Dioxus project
         run: dx bundle
 
+      - name: Copy Files to Docs
+        run: |
+          mkdir -p docs  # Create the docs directory if it doesn't exist
+          cp -r ./target/dx/rng/release/web/public/* ./docs/  # Copy files
+
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
