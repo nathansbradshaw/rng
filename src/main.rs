@@ -26,15 +26,15 @@ fn App() -> Element {
 #[component]
 pub fn RandomNumberGenerator() -> Element {
     // State for the maximum number and the random number
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
     let mut max_number = use_signal(|| 20); // Default max number
     let max: u32 = (*max_number.read()) + 1;
-    let mut random_number = use_signal(|| rng.gen_range(1..max));
+    let mut random_number = use_signal(|| rng.random_range(1..max));
 
     // Function to generate a random number
     let generate_random_number = move |_| {
         let max: u32 = (*max_number.read()) + 1;
-        random_number.set(rng.gen_range(1..max));
+        random_number.set(rng.random_range(1..max));
     };
 
     rsx! {

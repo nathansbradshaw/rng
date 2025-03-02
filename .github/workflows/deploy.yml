@@ -46,7 +46,7 @@ jobs:
 
       # Build the Dioxus project
       - name: Build Dioxus project
-        run: dx bundle --platform web --ssg
+        run: dx bundle
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
