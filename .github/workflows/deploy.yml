@@ -48,15 +48,14 @@ jobs:
       - name: Build Dioxus project
         run: dx bundle
 
-      - name: Copy Files to Docs
+      - name: Publish
         run: |
-          rm -R ./docs
-          mkdir -p docs  # Create the docs directory if it doesn't exist
-          cp -r ./target/dx/rng/release/web/public/* ./docs/  # Copy files
-
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs # Update this path to match your build output
+          cp -r public/* target/dx/site/release/web/public/
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+          git checkout gh-pages
+          rm -Rf ./docs
+          mv target/dx/site/release/web/public docs
+          git add .
+          git commit -m "Release"
+          git push origin gh-pages
