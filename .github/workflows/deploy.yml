@@ -42,7 +42,7 @@ jobs:
 
       # Install Dioxus CLI using cargo-binstall
       - name: Install Dioxus CLI
-        run: cargo binstall dioxus-cli --no-confirm
+        run: cargo binstall dioxus-cli@0.6.1 --no-confirm
 
       # Build the Dioxus project
       - name: Build Dioxus project
