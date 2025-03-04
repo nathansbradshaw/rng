@@ -95,3 +95,20 @@ fn Rectangle(random_number: u32) -> Element {
         }
     }
 }
+
+#[component]
+pub fn NotFound(segments: Vec<String>) -> Element {
+    rsx! {
+
+            div {
+                class: "not-found-container",
+                div {
+                    class: "not-found-overlay-text",
+                    h1 { "404" }
+                    p { "Not found
+                    " }
+                }
+            }
+
+    }
+}
