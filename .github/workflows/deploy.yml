@@ -48,6 +48,10 @@ jobs:
       - name: Build Dioxus project
         run: dx bundle
 
+      - name: Update asset paths
+        run: |
+          find ./target/dx/rng/release/web/public -type \( -name '*.html' -o -name '*.js' \) -exec sed -i 's|\./assets|./rng/assets|g' {} +
+
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
