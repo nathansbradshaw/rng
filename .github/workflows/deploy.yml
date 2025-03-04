@@ -48,12 +48,6 @@ jobs:
       - name: Build Dioxus project
         run: dx bundle
 
-      - name: Copy Jekyll config files
-        run: |
-          cp _config.yml ./target/dx/rng/release/web/public/
-          cp _redirects ./target/dx/rng/release/web/public/
-          # Add any other Jekyll files you need (e.g., _includes, _layouts, etc.)
-
       # - name: Update asset paths in index.html
       #   run: |
       #     sed -i 's|/\./assets/|{{ site.baseurl }}/assets/|g' ./target/dx/rng/release/web/public/index.html
@@ -73,3 +67,4 @@ jobs:
           publish_dir: ./target/dx/rng/release/web/public  # Update this path to match your build output
           destination_dir: docs
           enable_jekyll: true
+          keep_files: true
