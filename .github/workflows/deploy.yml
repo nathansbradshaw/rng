@@ -52,6 +52,8 @@ jobs:
         run: |
           find ./target/dx/rng/release/web/public -name '*.html' -exec sed -i 's|\./assets|./rng/assets|g' {} +
           find ./target/dx/rng/release/web/public -name '*.js' -exec sed -i 's|\./assets|./rng/assets|g' {} +
+          find ./target/dx/rng/release/web/public -name '*.css' -exec sed -i 's|\./assets|./rng/assets|g' {} +
+          find ./target/dx/rng/release/web/public -name '*.ico' -exec sed -i 's|\./assets|./rng/assets|g' {} +
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
