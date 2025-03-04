@@ -24,3 +24,5 @@ To run for a different platform, use the `--platform platform` flag. E.g.
 dx serve --platform desktop
 ```
 
+I commited a lot of hackery to get this to work, look at the deploy file and also understand that github expects this to be /rng which is NOT the root
+
