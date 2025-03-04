@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use rand::prelude::*;
 
 #[component]
-pub fn RandomNumberGenerator() -> Element {
+pub fn RandomNumberGenerator(segments: Vec<String>) -> Element {
     // State for the maximum number and the random number
     let mut rng = rand::rng();
     let mut max_number = use_signal(|| 20); // Default max number
