@@ -6,8 +6,52 @@ on:
       - main  # Trigger on pushes to the main branch
 
 jobs:
-  build-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Allow writing to the repository
+
     steps:
-      - name: "Dioxus Deploy"
-        uses: DioxusLabs/deploy-action@0.1.2
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Rust (required for cargo-binstall)
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      # Cache Rust dependencies and build artifacts
+      - name: Cache Rust dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      # Install cargo-binstall
+      - name: Install cargo-binstall
+        run: |
+          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+
+      # Install Dioxus CLI using cargo-binstall
+      - name: Install Dioxus CLI
+        run: cargo binstall dioxus-cli@0.6.1 --no-confirm
+
+      # Build the Dioxus project
+      - name: Build Dioxus project
+        run: dx bundle
+
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/dx/rng/release/web/public  # Update this path to match your build output
+          destination_dir: docs
