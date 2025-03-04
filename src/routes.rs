@@ -7,5 +7,5 @@ pub enum Route {
     #[route("/")]
     RandomNumberGenerator,
     #[route("/:..segments")]
-    NotFound { segments: Vec<String> },
+    RandomNumberGenerator,
 }
