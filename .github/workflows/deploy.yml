@@ -48,9 +48,9 @@ jobs:
       - name: Build Dioxus project
         run: dx bundle
 
-      - name: Update asset paths in index.html
-        run: |
-          sed -i 's|/\./assets/|{{ site.baseurl }}/assets/|g' ./target/dx/rng/release/web/public/index.html
+      # - name: Update asset paths in index.html
+      #   run: |
+      #     sed -i 's|/\./assets/|{{ site.baseurl }}/assets/|g' ./target/dx/rng/release/web/public/index.html
 
       # - name: Update asset paths
       #   run: |
